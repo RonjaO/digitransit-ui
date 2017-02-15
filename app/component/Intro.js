@@ -55,7 +55,7 @@ export default class Intro extends React.Component {
 
   render() {
     const themeSlides = slides[this.context.config.CONFIG] || [];
-    const screenreaderStyle = { position: 'absolute', left: '-10000', top: 'auto', height: '1px', width: '1px', overflow: 'hidden' };
+    const screenreaderStyle = { position: 'absolute', left: -10000, top: 'auto', height: '1px', width: '1px', overflow: 'hidden' };
     return (
       <div className="flex-vertical intro-slides" role="presentation">
         <BindKeyboardSwipeableViews
@@ -75,7 +75,6 @@ export default class Intro extends React.Component {
         </BindKeyboardSwipeableViews>
         <div className={cx('bottom', { hidden: this.state.slideIndex === themeSlides.length })} >
           {[...themeSlides, this.props.finalSlide].map(this.renderDot)}
-          // For screen reader users, information what slide are active
           <span style={screenreaderStyle} role="paragraph"> {this.state.slideIndex + 1}/{themeSlides.length} </span>
           <button tabIndex={(this.state.slideIndex)}className="next noborder" onClick={this.onNextClick}>
             <FormattedMessage id="next" defaultMessage="next" />
