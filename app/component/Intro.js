@@ -43,21 +43,23 @@ export default class Intro extends React.Component {
       key={i}
       tabIndex={0}
       onClick={this.onNextClick}
-    >
-      <img alt="" aria-hidden="true" src={content.image} role="presentation" />
+      role="presentation">
+      <img alt="" aria-hidden="true" src={content.image} />
       <h3>{content.header[this.context.intl.locale]}</h3>
       <span>{content.text[this.context.intl.locale]}</span>
     </button>
 
 
   renderDot = (text, i) =>
-    <span key={i} className={cx('dot', { active: i === this.state.slideIndex })}>•</span>
+    <span key={i} className={cx('dot', { active: i === this.state.slideIndex })} aria-hidden="true">•</span>
 
   render() {
     const themeSlides = slides[this.context.config.CONFIG] || [];
+    const screenreaderStyle = { position: 'absolute', left: '-10000', top: 'auto', height: '1px', width: '1px', overflow: 'hidden' };
     return (
-      <div className="flex-vertical intro-slides">
+      <div className="flex-vertical intro-slides" role="presentation">
         <BindKeyboardSwipeableViews
+          role="presentation"
           index={this.state.slideIndex}
           onChangeIndex={this.handleChange}
           onTransitionEnd={this.onTransitionFinished}
@@ -73,6 +75,8 @@ export default class Intro extends React.Component {
         </BindKeyboardSwipeableViews>
         <div className={cx('bottom', { hidden: this.state.slideIndex === themeSlides.length })} >
           {[...themeSlides, this.props.finalSlide].map(this.renderDot)}
+          // For screen reader users, information what slide are active
+          <span style={screenreaderStyle} role="paragraph"> {this.state.slideIndex + 1}/{themeSlides.length} </span>
           <button tabIndex={(this.state.slideIndex)}className="next noborder" onClick={this.onNextClick}>
             <FormattedMessage id="next" defaultMessage="next" />
           </button>
