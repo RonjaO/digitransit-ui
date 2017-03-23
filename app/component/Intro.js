@@ -76,7 +76,7 @@ export default class Intro extends React.Component {
         </BindKeyboardSwipeableViews>
         <div className={cx('bottom', { hidden: this.state.slideIndex === themeSlides.length })} >
           {[...themeSlides, this.props.finalSlide].map(this.renderDot)}
-          <span style={screenreaderInfoStyle} role="paragraph"> {this.state.slideIndex + 1}/{themeSlides.length} </span>
+          <span style={screenreaderInfoStyle}> {this.state.slideIndex + 1}/{themeSlides.length} </span>
           <button tabIndex={(this.state.slideIndex)}className="next noborder" onClick={this.onNextClick}>
             <FormattedMessage id="next" defaultMessage="next" />
           </button>
